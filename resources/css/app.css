@@ -1,11 +1,29 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@layer components {
+    .btn-gold {
+        @apply inline-flex items-center justify-center rounded-lg bg-gym-gold px-6 py-3 text-sm font-semibold text-black transition hover:bg-amber-400;
+    }
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    .btn-outline {
+        @apply inline-flex items-center justify-center rounded-lg border border-gym-gold px-6 py-3 text-sm font-semibold text-gym-gold transition hover:bg-gym-gold hover:text-black;
+    }
+
+    .gym-card {
+        @apply rounded-2xl border border-gym-border bg-gym-card p-6 transition hover:border-gym-gold/50;
+    }
+
+    .gym-input {
+        @apply mt-1 block w-full rounded-lg border-gym-border bg-gym-dark text-white placeholder:text-gym-muted/60 shadow-sm focus:border-gym-gold focus:ring-gym-gold;
+    }
+
+    textarea.gym-input {
+        @apply resize-none;
+    }
+
+    select.gym-input {
+        @apply cursor-pointer;
+    }
 }
