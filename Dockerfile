@@ -17,6 +17,8 @@ COPY . .
 
 # Install dependencies
 RUN composer installRUN composer install --no-dev --optimize-autoloader
+RUN npm install
+RUN npm run build
 RUN php artisan config:clear
 RUN php artisan migrate --force || true
 # Laravel permissions
