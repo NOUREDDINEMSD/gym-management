@@ -16,8 +16,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # Install dependencies
-RUN composer install
-
+RUN composer installRUN composer install --no-dev --optimize-autoloader
+RUN php artisan config:clear
+RUN php artisan migrate --force || true
 # Laravel permissions
 RUN chmod -R 777 storage bootstrap/cache
 
