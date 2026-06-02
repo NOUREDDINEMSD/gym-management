@@ -2,14 +2,14 @@ FROM php:8.2-cli
 
 WORKDIR /var/www
 
-# Install system dependencies + Node.js
+# System dependencies + Node
 RUN apt-get update && apt-get install -y \
     git curl zip unzip libzip-dev nodejs npm
 
-# Install PHP extensions
+# PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql zip
 
-# Install Composer
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy project
@@ -18,13 +18,17 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Install Node dependencies + build assets
+# Install Node + build assets (THIS WAS MISSING)
 RUN npm install
 RUN npm run build
 
-# Laravel setup
-RUN php artisan config:clear
-RUN php artisan migrate --force || true
+# IMPORTANT: remove old cache that causes HTTP issues
+RUN rm -rf bootstrap/cache/*.php
+
+# Laravel optimization (correct order)
+RUN php artisan optimize:clear || true
+RUN php artisan config:cache
+RUN php artisan route:cache || true
 
 # Permissions
 RUN chmod -R 777 storage bootstrap/cache
