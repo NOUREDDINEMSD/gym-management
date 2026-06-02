@@ -57,3 +57,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Deploy on Render
+
+This project includes a `render.yaml` blueprint for one-click provisioning on Render.
+
+1. Push this repository to GitHub.
+2. In Render, click **New +** -> **Blueprint**.
+3. Select this GitHub repository and deploy.
+4. After the first deploy, set:
+   - `APP_KEY` (generate locally with `php artisan key:generate --show`)
+   - `APP_URL` (your Render service URL)
+
+The blueprint creates:
+- One PHP web service (`pulsera-web`)
+- One PostgreSQL database (`pulsera-db`)
